@@ -31,3 +31,6 @@ Atlassian Codegeist 2026 해커톤(Devpost) 출품작. Forge 앱.
 
 ## 개발 환경
 - Forge CLI 16.0.0 은 Node `^22.23.4 || ^24.22.1 || >=26.12.1` 필요. `nvm use` (`.nvmrc` = 24) 후 `forge` 실행.
+- 데모 사이트: https://one-atlas-rtyg.atlassian.net (`forge site provision`, Jira·JSM·Confluence·Rovo 포함, 2027-02-22 만료).
+- Forge 로그인: API 토큰 `forge-codegeist-2026`, 2027-01-28 만료.
+- Devpost 등록 완료 (2026-11-24).
