@@ -1,0 +1,29 @@
+modules:
+  jira:issuePanel:
+    - key: recall-desk-issue-panel
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      title: Recall Desk
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: src/frontend/index.jsx
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/c1ab23ae-d6ce-42d1-9bcc-a07c5eb843b3
+permissions:
+  scopes:
+    - read:jira-work
+  external:
+    fetch:
+      backend:
+        - address: vpic.nhtsa.dot.gov
+        - address: api.nhtsa.gov
