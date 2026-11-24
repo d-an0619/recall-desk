@@ -34,3 +34,5 @@ Atlassian Codegeist 2026 해커톤(Devpost) 출품작. Forge 앱.
 - 데모 사이트: https://one-atlas-rtyg.atlassian.net (`forge site provision`, Jira·JSM·Confluence·Rovo 포함, 2027-02-22 만료).
 - Forge 로그인: API 토큰 `forge-codegeist-2026`, 2027-01-28 만료.
 - Devpost 등록 완료 (2026-11-24).
+- Rovo 에이전트 "Recall Desk": 배포돼도 에이전트 선택기에 바로 안 보임. 즐겨찾기 해야 뜸 (GraphQL `agentStudio_updateAgentAsFavourite`). 2026-11-24 SVC-1에서 동작 확인.
+- 데모 사이트 JSM 프로젝트 `SVC`, 테스트 요청 SVC-1.
