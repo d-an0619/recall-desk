@@ -33,6 +33,7 @@ export async function postRecallNote({ issueKey, vin } = {}) {
 export async function onIssueCreated(event) {
   try {
     const key = event?.issue?.key;
+    console.log(`onIssueCreated ${key}`);
     if (!key) return;
     const res = await api.asApp().requestJira(route`/rest/api/3/issue/${key}?fields=summary,description`);
     if (!res.ok) return console.error(`Could not read ${key} (HTTP ${res.status})`);
