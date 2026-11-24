@@ -16,4 +16,6 @@ assert.match(recallsUrl(v), /make=HYUNDAI&model=Sonata&modelYear=2015/);
 const r = parseRecalls(load('recalls.json'));
 assert.equal(r.length, 9);
 assert.ok(r[0].id && r[0].component && r[0].remedy);
+assert.equal(r.filter((x) => x.parkIt).length, 2);
+assert.ok(r.every((x) => x.parkOutSide === false && x.overTheAirUpdate === false));
 console.log('ok');

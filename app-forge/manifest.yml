@@ -7,12 +7,44 @@ modules:
       render: native
       title: Recall Desk
       icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+  action:
+    - key: lookup-vehicle-recalls
+      name: Look up vehicle recalls
+      function: lookup-recalls-fn
+      actionVerb: GET
+      description: Decode a VIN and return the vehicle and its open NHTSA safety recalls. Use the VIN if known, otherwise the Jira issue key to find the VIN in the request.
+      inputs:
+        vin:
+          title: VIN
+          type: string
+          required: false
+          description: The 17-character vehicle identification number
+        issueKey:
+          title: Issue key
+          type: string
+          required: false
+          description: Jira issue key (for example SD-12). Only used to find the VIN when no VIN is given.
+  rovo:agent:
+    - key: recall-desk-agent
+      name: Recall Desk
+      description: Checks open NHTSA safety recalls for a VIN and drafts a customer reply and a technician checklist.
+      prompt: resource:agent-prompt;prompt.txt
+      conversationStarters:
+        - Check open recalls for this request
+        - Draft a customer reply about recalls
+        - Make a service checklist for this VIN
+      actions:
+        - lookup-vehicle-recalls
   function:
     - key: resolver
       handler: index.handler
+    - key: lookup-recalls-fn
+      handler: index.lookupVehicleRecalls
 resources:
   - key: main
     path: src/frontend/index.jsx
+  - key: agent-prompt
+    path: resource/agent
 app:
   runtime:
     name: nodejs24.x

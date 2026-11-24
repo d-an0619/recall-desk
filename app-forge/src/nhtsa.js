@@ -28,6 +28,9 @@ export const parseRecalls = (json) =>
     consequence: x.Consequence,
     remedy: x.Remedy,
     date: x.ReportReceivedDate,
+    parkIt: !!x.parkIt,
+    parkOutSide: !!x.parkOutSide,
+    overTheAirUpdate: !!x.overTheAirUpdate,
   }));
 
 // fetchFn(url) must return a Response; pass @forge/api fetch on the backend.
