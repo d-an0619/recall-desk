@@ -19,3 +19,18 @@ assert.ok(r[0].id && r[0].component && r[0].remedy);
 assert.equal(r.filter((x) => x.parkIt).length, 2);
 assert.ok(r.every((x) => x.parkOutSide === false && x.overTheAirUpdate === false));
 console.log('ok');
+
+// note builder + sorting
+import { buildNote } from '../src/note.js';
+import { sortRecalls, flagsOf } from '../src/nhtsa.js';
+const sorted = sortRecalls(r);
+assert.ok(sorted[0].parkIt && sorted[1].parkIt); // urgent first
+const rest = sorted.slice(2).map((x) => x.date.split('/').reverse().join(''));
+assert.deepEqual(rest, [...rest].sort().reverse()); // then newest first
+assert.deepEqual(flagsOf({ parkIt: true, overTheAirUpdate: true }), ['Do not drive', 'OTA update']);
+const note = buildNote({ vin: '5NPE24AF4FH000000', vehicle: v, recalls: r });
+assert.equal(note.type, 'doc');
+const flat = JSON.stringify(note);
+assert.ok(flat.includes('2015 HYUNDAI Sonata') && flat.includes(r[0].id) && flat.includes('Do not drive'));
+assert.ok(JSON.stringify(buildNote({ vin: 'X', vehicle: v, recalls: [] })).includes('No open NHTSA recalls'));
+console.log('ok note');

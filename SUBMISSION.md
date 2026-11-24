@@ -17,6 +17,8 @@ When a car owner contacts a dealership or repair shop, the first question an age
   3. a polite customer reply draft,
   4. a technician checklist (parts check, remedy per campaign, safety notes).
   The agent is instructed never to invent recalls: every fact comes from the live NHTSA data.
+- **Writes back to the request.** "Post to issue" (in the panel, or by asking the agent) adds an internal note with the vehicle, the recalls and a technician checklist, and labels the request `open-recall` so the queue can be filtered.
+- **Automatic check on new requests.** When a request is created with a VIN in it, Recall Desk looks it up and posts the note and label on its own — no click needed.
 
 ## How we built it
 - Atlassian Forge, UI Kit (`jira:issuePanel`), Node.js 24 runtime.
@@ -30,7 +32,7 @@ When a car owner contacts a dealership or repair shop, the first question an age
 
 ## What's next
 - More recall sources (e.g. Korea, EU) behind the same action.
-- Post the checklist as an internal note and create sub-tasks per campaign.
+- Create sub-tasks per recall campaign.
 - Expose the lookup as an Atlassian MCP tool (`rovo:mcp`) for third-party agents.
 
 ## Installation (for judges)

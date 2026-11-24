@@ -46,3 +46,18 @@ export async function lookupVin(fetchFn, vin) {
   if (vehicle.error) return { vin, error: vehicle.error };
   return { vin, vehicle, recalls: parseRecalls(await get(recallsUrl(vehicle))) };
 }
+
+// "DD/MM/YYYY" -> sortable "YYYYMMDD".
+const dateKey = (d) => String(d || '').split('/').reverse().join('');
+
+// Urgent flags first (do not drive, park outside), then newest first. Returns a new array.
+export const sortRecalls = (recalls) =>
+  [...recalls].sort(
+    (a, b) =>
+      (b.parkIt - a.parkIt) ||
+      (b.parkOutSide - a.parkOutSide) ||
+      dateKey(b.date).localeCompare(dateKey(a.date))
+  );
+
+export const flagsOf = (r) =>
+  [r.parkIt && 'Do not drive', r.parkOutSide && 'Park outside', r.overTheAirUpdate && 'OTA update'].filter(Boolean);
