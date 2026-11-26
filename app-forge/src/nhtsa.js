@@ -39,7 +39,8 @@ export async function lookupVin(fetchFn, vin) {
   if (!vin) return { error: 'Enter a valid 17-character VIN' };
   const get = async (url) => {
     const res = await fetchFn(url);
-    if (!res.ok) throw new Error(`NHTSA returned HTTP ${res.status}`);
+    // NHTSA recalls API answers "no recalls" with HTTP 400 + {"Count":0}.
+    if (!res.ok && res.status !== 400) throw new Error(`NHTSA returned HTTP ${res.status}`);
     return res.json();
   };
   const vehicle = parseDecode(await get(decodeUrl(vin)));
